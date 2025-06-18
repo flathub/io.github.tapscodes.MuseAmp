@@ -83,8 +83,8 @@
       "sources": [
         {
           "type": "archive",
-          "url": "https://github.com/tapscodes/MuseAmp/archive/refs/tags/v1.2.2.zip",
-          "sha256": "5966799cdaa2863766479ee61ca7727a8352bbc5daeca9ef1a2e0cd692cc2121"
+          "url": "https://github.com/tapscodes/MuseAmp/archive/refs/tags/v1.2.5.zip",
+          "sha256": "887e8e01705cb299f2b6168d3f79c2b25ced69caa6e8cacd3e6dc5e28eed9904"
         }
       ]
     }
