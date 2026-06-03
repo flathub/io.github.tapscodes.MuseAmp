@@ -1,42 +1,37 @@
 {
   "app-id": "io.github.tapscodes.MuseAmp",
   "runtime": "org.kde.Platform",
-  "runtime-version": "6.9",
+  "runtime-version": "6.10",
   "sdk": "org.kde.Sdk",
   "base": "io.qt.PySide.BaseApp",
-  "base-version": "6.9",
+  "base-version": "6.10",
   "command": "MuseAmp.pyw",
-  "add-extensions": {
-    "org.freedesktop.Platform.ffmpeg-full": {
-      "version": "24.08",
-      "directory": "lib/ffmpeg",
-      "add-ld-path": "."
-    }
-  },
-  "cleanup": [
-    "/include",
-    "/lib/pkgconfig",
-    "/lib/cmake",
-    "/share/aclocal",
-    "/share/doc",
-    "/share/gtk-doc",
-    "/share/man",
-    "/share/info"
-  ],
-  "cleanup-commands": [
-    "mkdir -p /app/lib/ffmpeg"
-  ],
   "finish-args": [
     "--share=ipc",
     "--device=dri",
     "--socket=wayland",
     "--socket=fallback-x11"
   ],
+  "build-options": {
+    "env": [
+      "BASEAPP_REMOVE_WEBENGINE=1",
+      "BASEAPP_DISABLE_NUMPY=1"
+    ]
+  },
+  "cleanup": [
+    "/share/man"
+  ],
+  "cleanup-commands": [
+    "/app/cleanup-BaseApp.sh"
+  ],
   "modules": [
     {
       "name": "libebur128",
       "buildsystem": "cmake-ninja",
       "builddir": true,
+      "config-opts": [
+        "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
+      ],
       "sources": [
         {
           "type": "archive",
@@ -66,7 +61,8 @@
         {
           "type": "git",
           "url": "https://github.com/complexlogic/rsgain.git",
-          "tag": "v3.6"
+          "tag": "v3.7",
+          "commit": "d34e68f81682b3fb9b18bf673f4c25c3cc3f7966"
         }
       ]
     },
@@ -76,9 +72,9 @@
       "build-commands": [
         "install -Dm755 MuseAmp.pyw /app/bin/MuseAmp.pyw",
         "cp -r museamp /app/bin/",
-        "install -Dm644 io.github.tapscodes.MuseAmp.svg /app/share/icons/hicolor/scalable/apps/io.github.tapscodes.MuseAmp.svg",
-        "install -Dm644 io.github.tapscodes.MuseAmp.desktop /app/share/applications/io.github.tapscodes.MuseAmp.desktop",
-        "install -Dm644 io.github.tapscodes.MuseAmp.metainfo.xml /app/share/metainfo/io.github.tapscodes.MuseAmp.metainfo.xml"
+        "install -Dm644 ${FLATPAK_ID}.svg -t /app/share/icons/hicolor/scalable/apps/",
+        "install -Dm644 ${FLATPAK_ID}.desktop -t /app/share/applications/",
+        "install -Dm644 ${FLATPAK_ID}.metainfo.xml -t /app/share/metainfo/"
       ],
       "sources": [
         {
